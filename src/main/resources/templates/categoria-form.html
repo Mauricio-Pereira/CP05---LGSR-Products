@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulário de Categoria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+<h2 th:text="${#strings.isEmpty(${categoria.id}) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
+
+<form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" />
+        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    </div>
+    <div>
+        <button type="submit">Salvar</button>
+    </div>
+</form>
+
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+</body>
+</html>

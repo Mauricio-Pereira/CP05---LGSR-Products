@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:inline="javascript">
+<head>
+    <title>Listagem de Categorias</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:insert="~{fragments/header :: headerFragment}"></div>
+
+<main>
+    <h2>Categorias</h2>
+    <a th:href="@{/categorias/novo}">Nova Categoria</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cat : ${listaCategorias}">
+            <td th:text="${cat.id}"></td>
+            <td th:text="${cat.nome}"></td>
+            <td>
+                <button type="button" th:onclick= "openEditModal([[${cat.id}]] , [[${cat.nome}]])">
+                    Editar
+                </button>
+
+
+                <a th:href="@{|/categorias/excluir/${cat.id}|}"
+                   onclick="return confirm('Deseja excluir esta categoria?');">
+                    Excluir
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+
+        <h3>Editar Categoria</h3>
+        <form th:action="@{/categorias/salvar}" method="post">
+            <!-- Campo oculto que guarda o ID -->
+            <input type="hidden" id="categoriaId" name="id" />
+
+            <div>
+                <label for="categoriaNome">Nome:</label>
+                <input type="text" id="categoriaNome" name="nome" />
+            </div>
+            <br>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+</div>
+
+<div th:insert="~{fragments/footer :: footerFragment}"></div>
+
+<script>
+    function openEditModal(id, nome) {
+        document.getElementById('categoriaId').value = id;
+        document.getElementById('categoriaNome').value = nome;
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+</script>
+</body>
+</html>
