@@ -18,7 +18,6 @@ public class Produto {
     @NotBlank(message = "A descrição do produto é obrigatória")
     private String descricao;
 
-
     @Lob
     private String imagem;
 
@@ -77,5 +76,26 @@ public class Produto {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Produto{");
+        sb.append("id=").append(id);
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", descricao='").append(descricao).append('\'');
+        sb.append(", imagem='").append(imagem).append('\'');
+        sb.append(", preco=").append(preco);
+        sb.append(", categoria=").append(categoria);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -5,15 +5,20 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<h2 th:text="${#strings.isEmpty(${produto.id}) ? 'Cadastrar Produto' : 'Editar Produto'}"></h2>
+<h2 th:text="${#strings.isEmpty(produto.id) ? 'Cadastrar Produto' : 'Editar Produto'}"></h2>
 
 <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
     <div>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" th:field="*{nome}" />
         <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    </div>
+    <div>
+        <label for="descricao">Descrição:</label>
+        <input type="text" step="0.01" id="descricao" th:field="*{descricao}" />
+        <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
     </div>
     <div>
         <label for="preco">Preço:</label>
@@ -25,7 +30,7 @@
         <select id="categoria" th:field="*{categoria}">
             <option value="">Selecione...</option>
             <option th:each="cat : ${listaCategorias}"
-                    th:value="${cat}"
+                    th:value="${cat.id}"
                     th:text="${cat.nome}">
             </option>
         </select>
@@ -49,6 +54,6 @@
     <img th:src="'data:image/jpeg;base64,' + ${produto.imagem}" alt="Imagem do produto" style="max-width: 200px;" />
 </div>
 
-<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
 </html>

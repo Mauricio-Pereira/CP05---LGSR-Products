@@ -4,22 +4,24 @@
     <title>Formulário de Categoria</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
+
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+    <h2 th:text="${#strings.isEmpty(categoria.id) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
 
-<h2 th:text="${#strings.isEmpty(${categoria.id}) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
-
-<form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
-    <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" />
-        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-    </div>
-    <div>
-        <button type="submit">Salvar</button>
-    </div>
-</form>
-
-<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+    <form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" />
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        </div>
+        <div>
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
 </body>
+
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
+
 </html>

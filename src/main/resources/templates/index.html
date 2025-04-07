@@ -6,16 +6,16 @@
 </head>
 <body>
 
-<!-- Insere o fragmento do header -->
-<div th:insert="~{fragments/header :: headerFragment}"></div>
+    <!-- Insere o fragmento do header -->
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<section>
-    <h2>Bem-vindo(a) à LGSR Products!</h2>
-    <p>Acesse o menu para gerenciar categorias e produtos.</p>
-</section>
+    <section class="body-index">
+        <h2>Bem-vindo(a) à LGSR Products!</h2>
+        <p>Acesse o menu para gerenciar categorias e produtos.</p>
+    </section>
 
-<!-- Insere o fragmento do footer -->
-<div th:insert="~{fragments/footer :: footerFragment}"></div>
+    <!-- Insere o fragmento do footer -->
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
 
 </body>
 </html>

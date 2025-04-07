@@ -32,7 +32,7 @@ public class CategoriaController {
     public String salvarCategoria(@Valid @ModelAttribute("categoria") Categoria categoria,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // Se houver erros de validação, volta para o formulário
+
             return "categoria-form";
         }
         categoriaRepository.save(categoria);

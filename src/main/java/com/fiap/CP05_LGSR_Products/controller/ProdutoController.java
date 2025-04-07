@@ -44,6 +44,8 @@ public class ProdutoController {
             Model model,
             @RequestParam("imageFile") MultipartFile imageFile) {
 
+        System.out.println(produto.toString());
+
         // Verifica erros de validação dos outros campos
         if (bindingResult.hasErrors()) {
             // Se houver erros, recarrega categorias e volta para o form
@@ -68,7 +70,6 @@ public class ProdutoController {
 
         return "redirect:/produtos/listar";
     }
-
 
     @GetMapping("/editar/{id}")
     public String editarProduto(@PathVariable("id") Long id, Model model) {

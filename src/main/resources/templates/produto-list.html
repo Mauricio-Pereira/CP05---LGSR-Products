@@ -6,43 +6,38 @@
 
 </head>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<main>
+    <h2>Produtos</h2>
 
-<h2>Produtos</h2>
-<a th:href="@{/produtos/novo}">Novo Produto</a>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Categoria</th>
-        <th>Imagem</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="prod : ${listaProdutos}">
-        <td th:text="${prod.id}"></td>
-        <td th:text="${prod.nome}"></td>
-        <td th:text="${prod.preco}"></td>
-        <td th:text="${prod.categoria != null ? prod.categoria.nome : 'Sem Categoria'}"></td>
-        <td>
-            <!-- Exibe a imagem (caso exista) -->
-            <img th:if="${prod.imagem != null}"
-                 th:src="'data:image/jpeg;base64,' + ${prod.imagem}"
-                 alt="Imagem do produto"
-                 style="max-width: 100px;" />
-        </td>
-        <td>
-            <a th:href="@{|/produtos/editar/${prod.id}|}">Editar</a>
-            <a th:href="@{|/produtos/excluir/${prod.id}|}"
-               onclick="return confirm('Deseja excluir este produto?');">Excluir</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <a th:href="@{/produtos/novo}">Novo Produto</a>
 
-<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+    <div class="card-container">
+        <div class="card" th:each="prod : ${listaProdutos}">
+            <div class="card-image">
+                <img th:if="${prod.imagem != null}"
+                     th:src="'data:image/jpeg;base64,' + ${prod.imagem}"
+                     alt="Imagem do produto" />
+            </div>
+            <div class="card-content">
+                <h3 th:text="${prod.nome}"></h3>
+                <p><strong>Preço:</strong> <span th:text="${prod.preco}"></span></p>
+                <p><strong>Descricao:</strong> <span th:text="${prod.descricao}"></span></p>
+                <p><strong>Categoria:</strong>
+                    <span th:text="${prod.categoria.nome}"></span>
+                </p>
+            </div>
+            <div class="card-actions">
+                <a th:href="@{|/produtos/editar/${prod.id}|}">Editar</a>
+                <a th:href="@{|/produtos/excluir/${prod.id}|}"
+                   onclick="return confirm('Deseja excluir este produto?');">Excluir</a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
 </html>

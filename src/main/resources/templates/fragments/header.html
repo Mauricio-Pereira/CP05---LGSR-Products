@@ -8,10 +8,11 @@
 <!-- Use uma tag DIV (ou header) com o th:fragment -->
 <div th:fragment="headerFragment">
     <header>
-        <h1>Minha Aplicação</h1>
+        <a th:href="@{/}">
+            <img title="Retornar a home" th:src="@{/img/logo.png}">
+        </a>
         <nav>
             <ul>
-                <li><a th:href="@{/}">Início</a></li>
                 <li><a th:href="@{/categorias/listar}">Categorias</a></li>
                 <li><a th:href="@{/produtos/listar}">Produtos</a></li>
             </ul>

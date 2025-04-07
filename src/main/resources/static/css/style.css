@@ -1,12 +1,29 @@
 /* src/main/resources/static/css/style.css */
+* {
+    box-sizing: border-box;
+}
 
-html, body {
+html {
+    height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #000; /* fundo preto */
-    color: #fff;           /* texto branco */
+    background-color: #333;
+    color: #fff;
     font-family: Arial, sans-serif;
     min-height: 100%;
+}
+
+body
+{
+    margin: 0;
+    padding-top: 100px;
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 
 /* HEADER fixo no topo */
@@ -14,10 +31,24 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #111;
+    color: #fff;
     padding: 10px 20px;
     display: flex;
     align-items: center;
+    border-bottom: 1.5px solid transparent; /* Define uma borda inferior transparente */
+    border-image: linear-gradient(to right, #fff, #222 35%) 1; /* Ajusta a posição da cor #222 */
+}
+
+header img {
+    border-radius: 100%;
+    width: 80px;
+    transition: all 0.3s ease;
+    transition-delay: 100ms;
+    display: inline-block;
+}
+
+header img:hover {
+    transform: translate(10px);
 }
 
 header h1 {
@@ -36,12 +67,16 @@ nav ul {
 }
 
 nav li a {
-    color: #00f; /* link azul */
+    color: #fff;
+    font-weight: bold;
     text-decoration: none;
+    transition: all 0.3s ease;
+    transition-delay: 100ms;
+    display: inline-block;
 }
 
 nav li a:hover {
-    text-decoration: underline;
+    scale: 1.15;
 }
 
 /* FOOTER fixo embaixo */
@@ -49,14 +84,14 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #111;
+    color: #fff;
     padding: 10px 20px;
     text-align: center;
 }
 
 /* Espaço para não ficar sobreposto ao header/footer */
 main, section, .conteudo {
-    padding: 80px 20px 60px;
+    padding: 0px 20px 0px;
     /* top 80px (header) e bottom 60px (footer) */
 }
 
@@ -77,14 +112,84 @@ th, td {
 }
 
 th {
-    background-color: #111; /* cabeçalho da tabela */
+    background-color: #fff; /* cabeçalho da tabela */
+}
+
+/* Cards de produtos */
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 250px;
+    padding: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.card-content {
+    margin-top: 10px;
+}
+
+.card-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-actions a {
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.card-actions a:hover {
+    background-color: #fff;
+}
+
+/* Body index */
+
+.body-index
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.body-index h2
+{
+    font-size: 35px;
+    margin: 30px 0px 10px 0px;
+}
+
+.body-index p
+{
+    font-size: 20px;
 }
 
 /* Botões */
 button, input[type="submit"] {
-    background-color: #00f;
+    background-color:#333;
     border: none;
-    color: #fff;
+    color:  #fff;
     padding: 8px 12px;
     cursor: pointer;
 }
@@ -95,13 +200,9 @@ button:hover, input[type="submit"]:hover {
 
 /* Links gerais */
 a {
-    color: #00f;
+    text-decoration: none;
+    color: #333;
 }
-
-a:hover {
-    text-decoration: underline;
-}
-
 
 .modal {
     display: none; /* escondido por padrão */
@@ -116,7 +217,7 @@ a:hover {
 
 .modal-content {
     background-color: #111;
-    color: #fff;
+    color: #333;
     margin: 10% auto;
     padding: 20px;
     width: 300px;

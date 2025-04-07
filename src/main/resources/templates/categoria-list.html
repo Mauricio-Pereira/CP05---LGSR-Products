@@ -5,7 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<div th:insert="~{fragments/header :: headerFragment}"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <main>
     <h2>Categorias</h2>
@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<div th:insert="~{fragments/footer :: footerFragment}"></div>
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 
 <script>
     function openEditModal(id, nome) {
@@ -71,5 +71,6 @@
         document.getElementById('editModal').style.display = 'none';
     }
 </script>
+
 </body>
 </html>

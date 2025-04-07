@@ -5,7 +5,7 @@
   <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<div th:insert="~{fragments/header :: headerFragment}"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 <main>
   <h2>Nova Categoria</h2>
   <form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
@@ -22,6 +22,6 @@
   <a th:href="@{/categorias/listar}">Voltar para a lista de categorias</a>
 </main>
 
-<div th:insert="~{fragments/footer :: footerFragment}"></div>
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
 </html>
