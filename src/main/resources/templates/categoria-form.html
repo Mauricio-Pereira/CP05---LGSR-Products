@@ -2,26 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Formulário de Categoria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <body>
-    <h2 th:text="${#strings.isEmpty(categoria.id) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
 
-    <form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" />
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-        </div>
-        <div>
-            <button type="submit">Salvar</button>
-        </div>
-    </form>
+    <main>
+        <a class="btn-go-back" th:href="@{/categorias/listar}">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <h2 th:text="${#strings.isEmpty(categoria.id) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
+
+        <form th:if="${#strings.isEmpty(categoria.id)}"
+              th:action="@{/categorias/salvar}"
+              th:object="${categoria}" method="post">
+
+            <div style="display: flex; flex-direction: column">
+                <input type="text" placeholder="Nome da categoria" id="nome" th:field="*{nome}" />
+                <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+
+            <div>
+                <button class="btn-salvar" type="submit">Salvar</button>
+            </div>
+        </form>
+
+        <form th:if="${!#strings.isEmpty(categoria.id)}"
+              th:action="@{/categorias/atualizar/{id}(id = ${categoria.id})}"
+              th:object="${categoria}" method="post">
+
+            <div style="display: flex; flex-direction: column">
+                <input type="text" placeholder="Nome da categoria" id="nome" th:field="*{nome}" />
+                <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+
+            <div>
+                <button class="btn-salvar" type="submit">Salvar</button>
+            </div>
+        </form>
+
+    </main>
+
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+
 </body>
-
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
 
 </html>

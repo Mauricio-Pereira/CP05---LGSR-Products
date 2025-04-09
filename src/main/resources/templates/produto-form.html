@@ -2,58 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Formulário de Produto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<h2 th:text="${#strings.isEmpty(produto.id) ? 'Cadastrar Produto' : 'Editar Produto'}"></h2>
+    <main>
 
-<form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" />
-        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-    </div>
-    <div>
-        <label for="descricao">Descrição:</label>
-        <input type="text" step="0.01" id="descricao" th:field="*{descricao}" />
-        <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
-    </div>
-    <div>
-        <label for="preco">Preço:</label>
-        <input type="number" step="0.01" id="preco" th:field="*{preco}" />
-        <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></span>
-    </div>
-    <div>
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" th:field="*{categoria}">
-            <option value="">Selecione...</option>
-            <option th:each="cat : ${listaCategorias}"
-                    th:value="${cat.id}"
-                    th:text="${cat.nome}">
-            </option>
-        </select>
-        <span th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
-    </div>
+        <a class="btn-go-back" th:href="@{/categorias/listar}">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
 
-    <!-- Campo para upload de imagem -->
-    <div>
-        <label for="imageFile">Imagem (opcional):</label>
-        <input type="file" id="imageFile" name="imageFile" accept="image/*" />
-    </div>
+        <h2 th:text="${#strings.isEmpty(produto.id) ? 'Cadastrar Produto' : 'Editar Produto'}"></h2>
 
-    <div>
-        <button type="submit">Salvar</button>
-    </div>
-</form>
+        <form th:if="${#strings.isEmpty(produto.id)}" class="form-produto" th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+            <div class="nome-div">
+                <label>Nome</label>
+                <input type="text"  id="nome" th:field="*{nome}" />
+                <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+            <div  class="descricao-div">
+                <label>Descricao</label>
+                <input type="text"  id="descricao" th:field="*{descricao}" />
+                <span class="error-span" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+            </div>
+            <div class="preco-div">
+                <label>Preço</label>
+                <input type="number" step="0.01" id="preco" th:field="*{preco}" min="0"/>
+                <span class="error-span" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></span>
+            </div>
+            <div class="select-div">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" th:field="*{categoria}">
+                    <option selected value="" >Selecione...</option>
+                    <option th:each="cat : ${listaCategorias}"
+                            th:value="${cat.id}"
+                            th:text="${cat.nome}">
+                    </option>
+                </select>
+                <span class="error-span" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
+            </div>
 
-<!-- Exibe a imagem se já estiver cadastrada -->
-<div th:if="${produto.imagem}">
-    <h4>Imagem cadastrada:</h4>
-    <img th:src="'data:image/jpeg;base64,' + ${produto.imagem}" alt="Imagem do produto" style="max-width: 200px;" />
-</div>
+            <!-- Campo para upload de imagem -->
+            <div  class="image-div">
+                <label for="imageFile">Imagem <span>(opcional)</span></label>
+                <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+            </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+            <div>
+                <button class="btn-salvar" type="submit">Salvar</button>
+            </div>
+        </form>
+
+        <form th:if="${!#strings.isEmpty(produto.id)}" class="form-produto" th:action="@{/produtos/atualizar/{id}(id = ${produto.id})}" th:object="${produto}" method="post" enctype="multipart/form-data">
+            <div class="nome-div">
+                <label>Nome</label>
+                <input type="text"  id="nome" th:field="*{nome}" />
+                <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+            <div  class="descricao-div">
+                <label>Descricao</label>
+                <input type="text"  id="descricao" th:field="*{descricao}" />
+                <span class="error-span" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+            </div>
+            <div class="preco-div">
+                <label>Preço</label>
+                <input type="number" step="0.01" id="preco" th:field="*{preco}" min="0"/>
+                <span class="error-span" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></span>
+            </div>
+            <div class="select-div">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" th:field="*{categoria}">
+                    <option selected value="" >Selecione...</option>
+                    <option th:each="cat : ${listaCategorias}"
+                            th:value="${cat.id}"
+                            th:text="${cat.nome}">
+                    </option>
+                </select>
+                <span class="error-span" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
+            </div>
+
+            <!-- Campo para upload de imagem -->
+            <div  class="image-div">
+
+                <div>
+                    <label for="imageFile">Imagem <span>(opcional)</span></label>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+                </div>
+
+            </div>
+
+            <div>
+                <button class="btn-salvar" type="submit">Salvar</button>
+            </div>
+        </form>
+
+    </main>
+
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
 </html>

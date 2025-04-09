@@ -25,7 +25,7 @@ public class CategoriaController {
     @GetMapping("/novo")
     public String novaCategoria(Model model) {
         model.addAttribute("categoria", new Categoria());
-        return "nova-categoria";
+        return "categoria-form";
     }
 
     @PostMapping("/salvar")
@@ -41,9 +41,21 @@ public class CategoriaController {
 
     @GetMapping("/editar/{id}")
     public String editarCategoria(@PathVariable("id") Long id, Model model) {
+
         Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido:" + id));
         model.addAttribute("categoria", categoria);
         return "categoria-form";
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String updateCategoria(@PathVariable("id") Long id, @Valid @ModelAttribute("categoria") Categoria categoriaRequest) {
+
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido:" + id));
+
+        categoria.setNome(categoriaRequest.getNome());
+        categoriaRepository.save(categoria);
+
+        return "redirect:/categorias/listar";
     }
 
     @GetMapping("/excluir/{id}")
