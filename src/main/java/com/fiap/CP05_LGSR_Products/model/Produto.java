@@ -12,19 +12,19 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome do produto é obrigatório")
+    @NotBlank(message = "{nome.notBlank}")
     private String nome;
 
-    @NotBlank(message = "A descrição do produto é obrigatória")
+    @NotBlank(message = "{descricao.notBlank}")
     private String descricao;
 
     @Lob
     private String imagem;
 
-    @PositiveOrZero(message = "O preço deve ser maior ou igual a zero")
+    @PositiveOrZero(message = "{preco.positiveOrZero}")
     private double preco;
 
-    @NotNull(message = "A categoria do produto é obrigatória")
+    @NotNull(message = "{categoria.notNull}")
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;

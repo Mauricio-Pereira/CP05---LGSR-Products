@@ -15,7 +15,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome não pode ser vazio")
+    @NotBlank(message = "{nomecat.notBlank}")
     private String nome;
 
     public Categoria() {
