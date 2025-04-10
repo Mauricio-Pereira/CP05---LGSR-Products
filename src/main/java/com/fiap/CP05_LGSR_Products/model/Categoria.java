@@ -15,15 +15,15 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome não pode ser vazio")
+    @NotBlank(message = "{nomecat.notBlank}")
     private String nome;
+
+    public Categoria() {
+    }
 
     public Categoria(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-    }
-
-    public Categoria() {
     }
 
     public Long getId() {

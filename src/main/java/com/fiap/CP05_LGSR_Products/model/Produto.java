@@ -12,20 +12,19 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome do produto é obrigatório")
+    @NotBlank(message = "{nome.notBlank}")
     private String nome;
 
-    @NotBlank(message = "A descrição do produto é obrigatória")
+    @NotBlank(message = "{descricao.notBlank}")
     private String descricao;
-
 
     @Lob
     private String imagem;
 
-    @PositiveOrZero(message = "O preço deve ser maior ou igual a zero")
+    @PositiveOrZero(message = "{preco.positiveOrZero}")
     private double preco;
 
-    @NotNull(message = "A categoria do produto é obrigatória")
+    @NotNull(message = "{categoria.notNull}")
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
@@ -77,5 +76,26 @@ public class Produto {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Produto{");
+        sb.append("id=").append(id);
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", descricao='").append(descricao).append('\'');
+        sb.append(", imagem='").append(imagem).append('\'');
+        sb.append(", preco=").append(preco);
+        sb.append(", categoria=").append(categoria);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -1,25 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Formulário de Categoria</title>
+    <title th:text="#{${#strings.isEmpty(categoria.id) ? 'categoria.form.title.new' : 'categoria.form.title.edit'}}">Título</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
+
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<h2 th:text="${#strings.isEmpty(${categoria.id}) ? 'Cadastrar Categoria' : 'Editar Categoria'}"></h2>
+<main>
+    <a class="btn-go-back" th:href="@{/categorias/listar}">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
 
-<form th:action="@{/categorias/salvar}" th:object="${categoria}" method="post">
-    <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" />
-        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-    </div>
-    <div>
-        <button type="submit">Salvar</button>
-    </div>
-</form>
+    <h2 th:text="#{${#strings.isEmpty(categoria.id) ? 'categoria.form.title.new' : 'categoria.form.title.edit'}}">Título</h2>
 
-<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+    <form th:if="${#strings.isEmpty(categoria.id)}"
+          th:action="@{/categorias/salvar}"
+          th:object="${categoria}" method="post">
+
+        <div style="display: flex; flex-direction: column">
+            <input type="text" th:placeholder="#{categoria.form.placeholder.nome}" id="nome" th:field="*{nome}" />
+            <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        </div>
+
+        <div>
+            <button class="btn-salvar" type="submit" th:text="#{botao.salvar}"></button>
+        </div>
+    </form>
+
+    <form th:if="${!#strings.isEmpty(categoria.id)}"
+          th:action="@{/categorias/atualizar/{id}(id = ${categoria.id})}"
+          th:object="${categoria}" method="post">
+
+        <div style="display: flex; flex-direction: column">
+            <input type="text" th:placeholder="#{categoria.form.placeholder.nome}" id="nome" th:field="*{nome}" />
+            <span class="error-span" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        </div>
+
+        <div>
+            <button class="btn-salvar" type="submit" th:text="#{botao.salvar}"></button>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
 </html>

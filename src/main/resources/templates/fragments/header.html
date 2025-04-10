@@ -1,20 +1,30 @@
 <!-- src/main/resources/templates/fragments/header.html -->
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title} ?: 'Minha Aplicação'"></title>
+    <title th:text="${title} ?: #{app.name}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
-<!-- Use uma tag DIV (ou header) com o th:fragment -->
 <div th:fragment="headerFragment">
     <header>
-        <h1>Minha Aplicação</h1>
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.png}" th:title="#{app.logo.title}" />
+        </a>
         <nav>
             <ul>
-                <li><a th:href="@{/}">Início</a></li>
-                <li><a th:href="@{/categorias/listar}">Categorias</a></li>
-                <li><a th:href="@{/produtos/listar}">Produtos</a></li>
+                <li><a th:href="@{/categorias/listar}" th:text="#{menu.categorias}"></a></li>
+                <li><a th:href="@{/produtos/listar}" th:text="#{menu.produtos}"></a></li>
             </ul>
+            <div>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?lang=pt_BR">BR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?lang=en">EN</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 </div>

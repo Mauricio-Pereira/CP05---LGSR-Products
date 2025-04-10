@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/produtos")
@@ -44,6 +45,7 @@ public class ProdutoController {
             Model model,
             @RequestParam("imageFile") MultipartFile imageFile) {
 
+
         // Verifica erros de validação dos outros campos
         if (bindingResult.hasErrors()) {
             // Se houver erros, recarrega categorias e volta para o form
@@ -65,6 +67,40 @@ public class ProdutoController {
 
         // Salva o produto no banco
         produtoRepository.save(produto);
+
+        return "redirect:/produtos/listar";
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String atualizarProduto(
+            @PathVariable("id") Long id,
+            @Valid @ModelAttribute("produto") Produto produto,
+            Model model,
+            @RequestParam("imageFile") MultipartFile imageFile) {
+
+        Optional<Produto> produtoExistenteOptional = produtoRepository.findById(id);
+        if (produtoExistenteOptional.isEmpty()) {
+            return "redirect:/produtos/listar";
+        }
+
+        Produto produtoExistente = produtoExistenteOptional.get();
+
+        // Atualiza os campos do produto existente
+        produtoExistente.setNome(produto.getNome());
+        produtoExistente.setDescricao(produto.getDescricao());
+        produtoExistente.setPreco(produto.getPreco());
+        produtoExistente.setCategoria(produto.getCategoria());
+
+        try {
+            if (imageFile != null && !imageFile.isEmpty()) {
+                String base64 = Base64.getEncoder().encodeToString(imageFile.getBytes());
+                produtoExistente.setImagem(base64);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        produtoRepository.save(produtoExistente);
 
         return "redirect:/produtos/listar";
     }
