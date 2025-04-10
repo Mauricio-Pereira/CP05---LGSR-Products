@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>LGSR Products</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 
-    <!-- Insere o fragmento do header -->
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+<!-- Insere o fragmento do header -->
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
-    <section class="body-index">
-        <h2>Bem-vindo(a) à LGSR Products!</h2>
-        <p>Acesse o menu para gerenciar categorias e produtos.</p>
-    </section>
+<section class="body-index">
+    <h2><span th:text="#{mensagem.boasvindas}"></span> LGSR Products!</h2>
+    <p><span th:text="#{mensagem.instrucao}"></span></p>
+</section>
 
-    <!-- Insere o fragmento do footer -->
-    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+<!-- Insere o fragmento do footer -->
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
 
 </body>
 </html>

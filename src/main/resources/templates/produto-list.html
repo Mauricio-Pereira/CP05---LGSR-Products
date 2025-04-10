@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Listagem de Produtos</title>
+    <title th:text="#{produto.listagem.titulo}"></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-
 </head>
 <body>
-<div th:replace="~{fragments/header :: headerFragment}"></div>
-<main>
-    <h2>Produtos</h2>
 
-    <a class="btn-redirect" th:href="@{/produtos/novo}">Novo Produto</a>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<main>
+    <h2><span th:text="#{produto.listagem.subtitulo}"></span></h2>
+
+    <a class="btn-redirect" th:href="@{/produtos/novo}" th:text="#{botao.novo.produto}"></a>
 
     <div class="card-container">
         <div class="card" th:each="prod : ${listaProdutos}">
@@ -20,34 +21,36 @@
                      th:src="'data:image/jpeg;base64,' + ${prod.imagem}"
                      alt="Imagem do produto" />
 
-                <div class="img-null" th:if="${prod.imagem == null}">
-
-                </div>
+                <div class="img-null" th:if="${prod.imagem == null}"></div>
             </div>
             <div class="card-content">
                 <h3 th:text="${prod.nome}"></h3>
-                <p><strong>Preço:</strong> <span th:text="${prod.preco}"></span></p>
-                <p><strong>Descricao:</strong> <span th:text="${prod.descricao}"></span></p>
-                <p><strong>Categoria:</strong>
+                <p>
+                    <strong th:text="#{produto.preco}"></strong>
+                    <span th:text="${prod.preco}"></span>
+                </p>
+                <p>
+                    <strong th:text="#{produto.descricao}"></strong>
+                    <span th:text="${prod.descricao}"></span>
+                </p>
+                <p>
+                    <strong th:text="#{produto.categoria}"></strong>
                     <span th:text="${prod.categoria.nome}"></span>
                 </p>
             </div>
             <div class="card-actions">
-
                 <a class="btn-edit" type="button" th:href="@{|/produtos/editar/${prod.id}|}">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
 
                 <a class="btn-delete" th:href="@{|/produtos/excluir/${prod.id}|}"
-                   onclick="return confirm('Deseja excluir esta categoria?');">
+                   th:onclick="'return confirm(\'' + #{produto.confirmacao.exclusao} + '\');'">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </div>
         </div>
     </div>
-
 </main>
-
 
 <div th:replace="~{fragments/footer :: footerFragment}"></div>
 </body>
